@@ -23,6 +23,11 @@ jobs:
           dotnet publish
           mv bin/Release/net8.0/linux-x64/publish/microfetch /opt/microfetch
 
+      - name: Checksum
+        id: check
+        run: |
+          echo "CHECK=$(sha256sum /opt/microfetch)" >> $GITHUB_OUTPUT
+
       - name: Upload to GitHub Artifacts
         uses: svenstaro/upload-release-action@v2
         with:
@@ -30,4 +35,4 @@ jobs:
           file: /opt/microfetch
           tag: latest
           overwrite: true
-          body: "Automated release of microfetch."
+          body: ${{ steps.check.outputs.CHECK }}
