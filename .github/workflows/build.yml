@@ -1,0 +1,33 @@
+name: Builder
+
+on:
+  push:
+    paths:
+      - ".github/workflows/build.yml"
+      - "README.md"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Essentials
+        run: |
+          sudo apt update
+          sudo apt install -y dotnet-sdk-8.0 dotnet-runtime-8.0
+
+      - name: Build microfetch
+        run: |
+          mkdir -p $HOME/builds
+          git clone https://gitlab.com/demonkingswarn/microfetch $HOME/builds/microfetch
+          cd $HOME/builds/microfetch
+          dotnet publish
+          mv bin/Release/net8.0/linux-x64/publish/microfetch /opt/microfetch
+
+      - name: Upload to GitHub Artifacts
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.TOKEN }}
+          file: /opt/microfetch
+          tag: latest
+          overwrite: true
+          body: "Automated release of microfetch."
