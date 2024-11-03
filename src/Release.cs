@@ -6,6 +6,11 @@ using System.Diagnostics;
 namespace Src {
   public class Release
   {
+      const string GREEN = "\x1b[32m";
+      const string RED = "\x1b[31m";
+      const string YELLOW = "\x1b[33m";
+      const string RESET = "\x1b[0m";
+      
       public static string GetUserAndHost()
       {         
         string userEnv = Environment.GetEnvironmentVariable("USER");
@@ -20,7 +25,7 @@ namespace Src {
             hostEnv = "unknown";
         }
 
-        string userAndHost = $"{userEnv}@{hostEnv}";
+        string userAndHost = $"{YELLOW}{userEnv}{RED}@{GREEN}{hostEnv}{RESET}";
         return userAndHost;
       }
 
@@ -73,6 +78,29 @@ namespace Src {
           {
               return "Unknown";
           }
+      }
+
+      public static string Uptime()
+      {
+        using (Process process = new Process())
+        {
+          process.StartInfo.FileName = "/bin/sh";
+          process.StartInfo.Arguments = "-c \"uptime -p\"";
+          process.StartInfo.RedirectStandardOutput = true;
+          process.StartInfo.UseShellExecute = false;
+          process.StartInfo.CreateNoWindow = true;
+
+          process.Start();
+          string output = process.StandardOutput.ReadToEnd().Trim();
+          process.WaitForExit();
+
+          if (output.StartsWith("up "))
+          {
+            output = output.Substring(3);
+          }
+
+          return output;
+        }
       }
   }
 }
