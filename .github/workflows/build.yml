@@ -18,7 +18,7 @@ jobs:
       - name: Build microfetch
         run: |
           mkdir -p $HOME/builds
-          git clone https://gitlab.com/demonkingswarn/microfetch $HOME/builds/microfetch
+          git clone https://github.com/demonkingswarn/microfetch $HOME/builds/microfetch
           cd $HOME/builds/microfetch
           dotnet publish
           mv bin/Release/net8.0/linux-x64/publish/microfetch /opt/microfetch
