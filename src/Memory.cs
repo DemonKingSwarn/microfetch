@@ -47,8 +47,30 @@ public static class Memory
 
             // Calculate usage percentage
             double usagePercentage = (double)usedMemory / totalMemory * 100;
+            string memUsage;
 
-            return $"{usedMemoryGiB:F2} GiB / {totalMemoryGiB:F2} GiB ({usagePercentage:F1}%)";
+            // Colors
+            string green = "\x1b[0;32m";
+            string yellow = "\x1b[1;33m";
+            string red = "\x1b[0;31m";
+            string reset = "\x1b[0m";
+            
+            string colorCode;
+
+            if(usagePercentage < 50d)
+            {
+              colorCode = green;
+            }
+            else if(usagePercentage >= 50d && usagePercentage < 89d)
+            {
+              colorCode = yellow;
+            }
+            else {
+              colorCode = red;
+            }
+
+            memUsage = $"{colorCode}{usagePercentage:F1}%{reset}";
+            return $"{usedMemoryGiB:F2} GiB / {totalMemoryGiB:F2} GiB ({memUsage})";
         }
         catch (Exception ex)
         {
