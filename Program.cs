@@ -12,6 +12,7 @@ class Program
         Console.WriteLine($"  Uptime\t| {Release.Uptime()}");
         Console.WriteLine($"  Desktop\t| {Desktop.DesktopInfo()}");
         Console.WriteLine($"塞 Memory\t| {Memory.GetMemory()}");
+        Console.WriteLine($"󱥎  Storage\t| {Storage.GetStorage()}");
         Console.WriteLine($"  Media\t| {Media.GetMediaInfo()}");
         Console.WriteLine($"  Colors\t| {Color.PrintDots()}");
     }
