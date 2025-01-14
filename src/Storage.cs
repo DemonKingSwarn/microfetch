@@ -33,8 +33,8 @@ public static class Storage
           Console.WriteLine($"An error occured: {ex.Message}");
        }
 
-       totalSpaceGiB = totalSpace / (1024.0 * 1024.0);
-       usedSpaceGiB = usedSpace / (1024.0 * 1024.0);
+       totalSpaceGiB = totalSpace / (1024.0 * 1024.0 * 1024.0);
+       usedSpaceGiB = usedSpace / (1024.0 * 1024.0 * 1024.0);
 
         usedPercentage = (usedSpaceGiB / totalSpaceGiB) * 100d;
 
@@ -60,7 +60,7 @@ public static class Storage
             string storageUsage;
             storageUsage = $"{colorCode}{usedPercentage:0.00}%{reset}";
 
-       return $"{usedSpaceGiB:0.00} GiB / {totalSpaceGiB:0.00} GiB ({storageUsage})";
+       return $"{usedSpaceGiB:F1} GiB / {totalSpaceGiB:F1} GiB ({storageUsage})";
     }
     
 }
