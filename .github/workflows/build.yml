@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - ".github/workflows/build.yml"
+      - "Program.cs"
 
 
 jobs:
