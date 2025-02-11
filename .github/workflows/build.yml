@@ -5,7 +5,7 @@ on:
     paths:
       - ".github/workflows/build.yml"
       - "Program.cs"
-
+      - "microfetch.csproj"
 
 jobs:
   build:
